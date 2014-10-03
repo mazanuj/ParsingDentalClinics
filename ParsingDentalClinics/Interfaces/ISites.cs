@@ -1,9 +1,10 @@
-﻿using ParsingDentalClinics.Config;
+﻿using System.Collections.Generic;
+using ParsingDentalClinics.Config;
 
 namespace ParsingDentalClinics.Interfaces
 {
     public interface ISiteData
     {
-        InfoHolder GetInfo();
+        List<InfoHolder> GetInfo();
     }
 }
