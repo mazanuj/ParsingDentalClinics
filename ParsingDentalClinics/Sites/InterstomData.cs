@@ -9,7 +9,7 @@ namespace ParsingDentalClinics.Sites
 {
     internal class InterstomData : ISiteData
     {
-        public List<InfoHolder> GetInfo()
+        public IEnumerable<InfoHolder> GetInfo()
         {
             var holdersList = new List<InfoHolder>();
 

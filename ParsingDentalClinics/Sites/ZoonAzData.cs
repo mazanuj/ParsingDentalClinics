@@ -6,7 +6,7 @@ namespace ParsingDentalClinics.Sites
 {
     internal class ZoonAzData : ISiteData
     {
-        public List<InfoHolder> GetInfo()
+        public IEnumerable<InfoHolder> GetInfo()
         {
             return null;
         }

@@ -5,6 +5,6 @@ namespace ParsingDentalClinics.Interfaces
 {
     public interface ISiteData
     {
-        List<InfoHolder> GetInfo();
+        IEnumerable<InfoHolder> GetInfo();
     }
 }
