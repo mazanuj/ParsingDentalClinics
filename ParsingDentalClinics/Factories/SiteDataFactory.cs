@@ -12,14 +12,15 @@ namespace ParsingDentalClinics.Factories
             {
                 case SiteEnum.Interstom:
                     return new InterstomData();
-
                 case SiteEnum.NavigatorAz:
                     return new NavigatorAzData();
-
                 case SiteEnum.ZoonAz:
                     return new ZoonAzData();
                 case SiteEnum.Bakusearch:
-                    return new BakuSearch();
+                    return new BakuSearchData();
+                case SiteEnum.AllBiz:
+                    return new AllBizData();
+
                 default:
                     return null;
             }

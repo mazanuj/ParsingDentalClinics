@@ -10,5 +10,10 @@ namespace ParsingDentalClinics.Sites
         {
             return null;
         }
+
+        public string RegExpression(string textInput)
+        {
+            return null;
+        }
     }
 }

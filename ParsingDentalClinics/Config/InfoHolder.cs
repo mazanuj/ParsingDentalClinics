@@ -23,6 +23,7 @@
         NavigatorAz,
         Interstom,
         ZoonAz,
-        Bakusearch
+        Bakusearch,
+        AllBiz
     }
 }

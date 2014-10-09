@@ -27,10 +27,14 @@ namespace ParsingDentalClinics.Sites
                     switch (j)
                     {
                         case 0:
-                            holder.ClinicName = RegExpression(tds, j);
+                            holder.ClinicName = RegExpression(tds[j].ChildNodes
+                                .Where(y => y.InnerText != string.Empty)
+                                .Aggregate(string.Empty, (current, htmlNode) => current + htmlNode.InnerText));
                             break;
                         case 1:
-                            var text = RegExpression(tds, j);
+                            var text = RegExpression(tds[j].ChildNodes
+                                .Where(y => y.InnerText != string.Empty)
+                                .Aggregate(string.Empty, (current, htmlNode) => current + htmlNode.InnerText));
                             if (!text.Contains(";"))
                             {
                                 holder.Address = text;
@@ -42,7 +46,9 @@ namespace ParsingDentalClinics.Sites
                             holder.Mail = text.Substring(start + 1).Replace(" ", string.Empty);
                             break;
                         case 2:
-                            holder.Phone = RegExpression(tds, j);
+                            holder.Phone = RegExpression(tds[j].ChildNodes
+                                .Where(y => y.InnerText != string.Empty)
+                                .Aggregate(string.Empty, (current, htmlNode) => current + htmlNode.InnerText));
                             break;
                     }
                 }
@@ -52,12 +58,9 @@ namespace ParsingDentalClinics.Sites
             return holdersList;
         }
 
-        private static string RegExpression(IReadOnlyList<HtmlNode> nodeList, int index)
+        public string RegExpression(string textInput)
         {
-            var text = nodeList[index].ChildNodes
-                .Where(y => y.InnerText != string.Empty)
-                .Aggregate(string.Empty, (current, htmlNode) => current + htmlNode.InnerText);
-            text = text.Replace("&quot;", string.Empty)
+            var text = textInput.Replace("&quot;", string.Empty)
                 .Replace("\n", string.Empty)
                 .Replace("&nbsp;", string.Empty);
             text = Regex.Replace(text, @"\s+", " ");

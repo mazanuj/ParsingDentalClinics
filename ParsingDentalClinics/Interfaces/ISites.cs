@@ -6,5 +6,6 @@ namespace ParsingDentalClinics.Interfaces
     public interface ISiteData
     {
         IEnumerable<InfoHolder> GetInfo();
+        string RegExpression(string textInput);
     }
 }

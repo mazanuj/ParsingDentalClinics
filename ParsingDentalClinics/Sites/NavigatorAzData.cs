@@ -99,7 +99,7 @@ namespace ParsingDentalClinics.Sites
             return holdersList;
         }
 
-        private static string RegExpression(string textInput)
+        public string RegExpression(string textInput)
         {
             var text = textInput.Replace("&quot;", string.Empty)
                 .Replace("\n", string.Empty)
