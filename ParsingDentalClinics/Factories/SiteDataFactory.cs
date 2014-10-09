@@ -18,7 +18,8 @@ namespace ParsingDentalClinics.Factories
 
                 case SiteEnum.ZoonAz:
                     return new ZoonAzData();
-
+                case SiteEnum.Bakusearch:
+                    return new BakuSearch();
                 default:
                     return null;
             }

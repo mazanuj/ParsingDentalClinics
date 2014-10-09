@@ -22,6 +22,7 @@
     {
         NavigatorAz,
         Interstom,
-        ZoonAz
+        ZoonAz,
+        Bakusearch
     }
 }
