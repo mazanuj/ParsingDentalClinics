@@ -25,6 +25,7 @@
         Bakusearch,
         AllBiz,
         BiznesinfoAz,
-        YaMamaKz
+        YaMamaKz,
+        StartsmileKz
     }
 }
