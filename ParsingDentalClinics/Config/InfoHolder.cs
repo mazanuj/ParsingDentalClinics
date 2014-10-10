@@ -26,6 +26,7 @@
         AllBiz,
         BiznesinfoAz,
         YaMamaKz,
-        StartsmileKz
+        StartsmileKz,
+        AstanaSpravker
     }
 }

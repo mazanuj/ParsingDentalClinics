@@ -24,6 +24,8 @@ namespace ParsingDentalClinics.Factories
                     return new YaMamaKzData();
                 case SiteEnum.StartsmileKz:
                     return new StartsmileKzData();
+                case SiteEnum.AstanaSpravker:
+                    return new AstanaSpravkerData();
 
                 default:
                     return null;
