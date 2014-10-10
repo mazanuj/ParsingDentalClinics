@@ -51,7 +51,8 @@
     <Compile Include="Parsing.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Sites\BakuSearch.cs" />
+    <Compile Include="Sites\AllBizData.cs" />
+    <Compile Include="Sites\BakuSearchData.cs" />
     <Compile Include="Sites\InterstomData.cs" />
     <Compile Include="Sites\NavigatorAzData.cs" />
     <Compile Include="Sites\ZoonAzData.cs" />

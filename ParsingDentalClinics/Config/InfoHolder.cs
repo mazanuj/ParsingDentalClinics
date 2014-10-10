@@ -22,8 +22,8 @@
     {
         NavigatorAz,
         Interstom,
-        ZoonAz,
         Bakusearch,
-        AllBiz
+        AllBiz,
+        BiznesinfoAz
     }
 }
