@@ -24,6 +24,7 @@
         Interstom,
         Bakusearch,
         AllBiz,
-        BiznesinfoAz
+        BiznesinfoAz,
+        YaMamaKz
     }
 }
