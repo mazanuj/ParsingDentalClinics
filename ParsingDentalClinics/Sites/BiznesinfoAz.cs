@@ -4,6 +4,7 @@ using System.Text.RegularExpressions;
 using HtmlAgilityPack;
 using ParsingDentalClinics.Config;
 using ParsingDentalClinics.Interfaces;
+using ParsingDentalClinics.Utils;
 
 namespace ParsingDentalClinics.Sites
 {
@@ -40,12 +41,12 @@ namespace ParsingDentalClinics.Sites
                 {
                     Site = SiteEnum.BiznesinfoAz,
                     Country = CountryEnum.Azerbaijan,
-                    ClinicName = RegExpression(
+                    ClinicName = RegExHelper.RegExpression(
                         clinic.Descendants("a")
                             .First(x => x.Attributes.Contains("href") &&
                                         x.Attributes["href"].Value == "javascript:;").InnerText
                         ),
-                    Address = RegExpression(
+                    Address = RegExHelper.RegExpression(
                         Regex.Match(
                             clinic.Descendants("div")
                                 .First(
@@ -55,7 +56,7 @@ namespace ParsingDentalClinics.Sites
                                 .InnerText
                             , @".*(?=; Tel:)").Value
                         ),
-                    Phone = RegExpression(
+                    Phone = RegExHelper.RegExpression(
                         Regex.Match(
                             clinic.Descendants("div")
                                 .First(
@@ -69,15 +70,6 @@ namespace ParsingDentalClinics.Sites
             }
 
             return holdersList;
-        }
-
-        public string RegExpression(string textInput)
-        {
-            var text = textInput.Replace("&quot;", string.Empty)
-                .Replace("\n", string.Empty)
-                .Replace("&nbsp;", string.Empty);
-            text = Regex.Replace(text, @"\s+", " ");
-            return Regex.Replace(text, @"(^\s+)|(\s+$)", string.Empty);
         }
     }
 }

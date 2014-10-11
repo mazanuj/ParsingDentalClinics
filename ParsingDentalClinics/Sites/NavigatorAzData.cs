@@ -4,6 +4,7 @@ using System.Text.RegularExpressions;
 using HtmlAgilityPack;
 using ParsingDentalClinics.Config;
 using ParsingDentalClinics.Interfaces;
+using ParsingDentalClinics.Utils;
 
 namespace ParsingDentalClinics.Sites
 {
@@ -42,12 +43,12 @@ namespace ParsingDentalClinics.Sites
                                     x.Attributes.Contains("href") &&
                                     Regex.IsMatch(x.Attributes["href"].Value, @"/firm/\d*/info/"))
                             .InnerText,
-                    Address = RegExpression(clinic
+                    Address = RegExHelper.RegExpression(clinic
                         .Descendants("td")
                         .Where(
                             x => x.Attributes.Contains("class") && x.Attributes["class"].Value == "td_commontext_11")
                         .ElementAt(1).InnerText),
-                    Phone = RegExpression(clinic
+                    Phone = RegExHelper.RegExpression(clinic
                         .Descendants("td")
                         .Last(
                             x => x.Attributes.Contains("class") && x.Attributes["class"].Value == "td_commontext_11")
@@ -97,15 +98,6 @@ namespace ParsingDentalClinics.Sites
                 #endregion
             }
             return holdersList;
-        }
-
-        public string RegExpression(string textInput)
-        {
-            var text = textInput.Replace("&quot;", string.Empty)
-                .Replace("\n", string.Empty)
-                .Replace("&nbsp;", string.Empty);
-            text = Regex.Replace(text, @"\s+", " ");
-            return Regex.Replace(text, @"(^\s+)|(\s+$)", string.Empty);
         }
     }
 }

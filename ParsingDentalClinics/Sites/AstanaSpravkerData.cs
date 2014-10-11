@@ -4,6 +4,7 @@ using System.Text.RegularExpressions;
 using HtmlAgilityPack;
 using ParsingDentalClinics.Config;
 using ParsingDentalClinics.Interfaces;
+using ParsingDentalClinics.Utils;
 
 namespace ParsingDentalClinics.Sites
 {
@@ -33,13 +34,13 @@ namespace ParsingDentalClinics.Sites
                         {
                             Site = SiteEnum.AstanaSpravker,
                             Country = CountryEnum.Kazakhstan,
-                            ClinicName = RegExpression(
+                            ClinicName = RegExHelper.RegExpression(
                                 clinic.Descendants("a")
                                     .First(x => x.Attributes.Contains("href") &&
                                                 Regex.IsMatch(x.Attributes["href"].Value,
                                                     @"/stomatologija/.*\.htm.?"))
                                     .InnerText),
-                            Address = RegExpression(
+                            Address = RegExHelper.RegExpression(
                                 clinic.Descendants("div")
                                     .First(x => x.Attributes.Contains("class") &&
                                                 x.Attributes["class"].Value == "row")
@@ -48,7 +49,7 @@ namespace ParsingDentalClinics.Sites
                                                 x.Attributes.Contains("class") &&
                                                 x.Attributes["class"].Value == "right")
                                     .InnerText),
-                            Phone = RegExpression(
+                            Phone = RegExHelper.RegExpression(
                                 clinic.Descendants("div")
                                     .Where(x => x.Attributes.Contains("class") &&
                                                 x.Attributes["class"].Value == "row")
@@ -68,15 +69,6 @@ namespace ParsingDentalClinics.Sites
             }
 
             return holdersList;
-        }
-
-        public string RegExpression(string textInput)
-        {
-            var text = textInput.Replace("&quot;", string.Empty)
-                .Replace("\n", string.Empty)
-                .Replace("&nbsp;", string.Empty);
-            text = Regex.Replace(text, @"\s+", " ");
-            return Regex.Replace(text, @"(^\s+)|(\s+$)", string.Empty);
         }
     }
 }

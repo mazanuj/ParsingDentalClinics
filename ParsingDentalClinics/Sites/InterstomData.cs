@@ -4,6 +4,7 @@ using System.Text.RegularExpressions;
 using HtmlAgilityPack;
 using ParsingDentalClinics.Config;
 using ParsingDentalClinics.Interfaces;
+using ParsingDentalClinics.Utils;
 
 namespace ParsingDentalClinics.Sites
 {
@@ -27,12 +28,12 @@ namespace ParsingDentalClinics.Sites
                     switch (j)
                     {
                         case 0:
-                            holder.ClinicName = RegExpression(tds[j].ChildNodes
+                            holder.ClinicName = RegExHelper.RegExpression(tds[j].ChildNodes
                                 .Where(y => y.InnerText != string.Empty)
                                 .Aggregate(string.Empty, (current, htmlNode) => current + htmlNode.InnerText));
                             break;
                         case 1:
-                            var text = RegExpression(tds[j].ChildNodes
+                            var text = RegExHelper.RegExpression(tds[j].ChildNodes
                                 .Where(y => y.InnerText != string.Empty)
                                 .Aggregate(string.Empty, (current, htmlNode) => current + htmlNode.InnerText));
                             if (!text.Contains(";"))
@@ -46,7 +47,7 @@ namespace ParsingDentalClinics.Sites
                             holder.Mail = text.Substring(start + 1).Replace(" ", string.Empty);
                             break;
                         case 2:
-                            holder.Phone = RegExpression(tds[j].ChildNodes
+                            holder.Phone = RegExHelper.RegExpression(tds[j].ChildNodes
                                 .Where(y => y.InnerText != string.Empty)
                                 .Aggregate(string.Empty, (current, htmlNode) => current + htmlNode.InnerText));
                             break;
@@ -56,15 +57,6 @@ namespace ParsingDentalClinics.Sites
             }
 
             return holdersList;
-        }
-
-        public string RegExpression(string textInput)
-        {
-            var text = textInput.Replace("&quot;", string.Empty)
-                .Replace("\n", string.Empty)
-                .Replace("&nbsp;", string.Empty);
-            text = Regex.Replace(text, @"\s+", " ");
-            return Regex.Replace(text, @"(^\s+)|(\s+$)", string.Empty);
         }
     }
 }

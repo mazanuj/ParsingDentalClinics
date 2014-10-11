@@ -5,10 +5,11 @@ using System.Text.RegularExpressions;
 using HtmlAgilityPack;
 using ParsingDentalClinics.Config;
 using ParsingDentalClinics.Interfaces;
+using ParsingDentalClinics.Utils;
 
 namespace ParsingDentalClinics.Sites
 {
-    internal class AllBizData : ISiteData
+    internal class AllBizAzData : ISiteData
     {
         public IEnumerable<InfoHolder> GetInfo()
         {
@@ -38,14 +39,14 @@ namespace ParsingDentalClinics.Sites
 
                 var infoHolder = new InfoHolder
                 {
-                    Site = SiteEnum.AllBiz,
+                    Site = SiteEnum.AllBizAz,
                     Country = CountryEnum.Azerbaijan,
-                    ClinicName = RegExpression(
+                    ClinicName = RegExHelper.RegExpression(
                         contacts.Descendants("h1")
                             .First(x => x.Attributes.Contains("itemprop") && x.Attributes["itemprop"].Value == "name")
                             .InnerText),
                     Phone =
-                        RegExpression(string.Join("; ",
+                        RegExHelper.RegExpression(string.Join("; ",
                             contacts.Descendants("span")
                                 .Where(
                                     x =>
@@ -53,7 +54,7 @@ namespace ParsingDentalClinics.Sites
                                         x.Attributes["itemprop"].Value == "telephone")
                                 .Select(y => y.InnerText)
                             )),
-                    Address = RegExpression(string.Format("{0}, {1}, {2}",
+                    Address = RegExHelper.RegExpression(string.Format("{0}, {1}, {2}",
                         contacts.Descendants("span")
                             .First(x => x.Attributes.Contains("class") && x.Attributes["class"].Value == "country-name")
                             .InnerText,
@@ -74,15 +75,6 @@ namespace ParsingDentalClinics.Sites
                 holdersList.Add(infoHolder);
             }
             return holdersList;
-        }
-
-        public string RegExpression(string textInput)
-        {
-            var text = textInput.Replace("&quot;", string.Empty)
-                .Replace("\n", string.Empty)
-                .Replace("&nbsp;", string.Empty);
-            text = Regex.Replace(text, @"\s+", " ");
-            return Regex.Replace(text, @"(^\s+)|(\s+$)", string.Empty);
         }
     }
 }

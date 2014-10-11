@@ -16,8 +16,8 @@ namespace ParsingDentalClinics.Factories
                     return new NavigatorAzData();
                 case SiteEnum.Bakusearch:
                     return new BakuSearchData();
-                case SiteEnum.AllBiz:
-                    return new AllBizData();
+                case SiteEnum.AllBizAz:
+                    return new AllBizAzData();
                 case SiteEnum.BiznesinfoAz:
                     return new BiznesinfoAz();
                 case SiteEnum.YaMamaKz:
@@ -26,6 +26,10 @@ namespace ParsingDentalClinics.Factories
                     return new StartsmileKzData();
                 case SiteEnum.AstanaSpravker:
                     return new AstanaSpravkerData();
+                case SiteEnum.VseKz:
+                    return new VseKz();
+                case SiteEnum.AllBizKz:
+                    return new AllBizKzData();
 
                 default:
                     return null;

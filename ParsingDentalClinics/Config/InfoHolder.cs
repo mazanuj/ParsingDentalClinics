@@ -23,10 +23,12 @@
         NavigatorAz,
         Interstom,
         Bakusearch,
-        AllBiz,
+        AllBizAz,
         BiznesinfoAz,
         YaMamaKz,
         StartsmileKz,
-        AstanaSpravker
+        AstanaSpravker,
+        VseKz,
+        AllBizKz
     }
 }

@@ -6,6 +6,7 @@ using System.Text.RegularExpressions;
 using HtmlAgilityPack;
 using ParsingDentalClinics.Config;
 using ParsingDentalClinics.Interfaces;
+using ParsingDentalClinics.Utils;
 
 namespace ParsingDentalClinics.Sites
 {
@@ -56,27 +57,18 @@ namespace ParsingDentalClinics.Sites
                     if (Regex.IsMatch(value, @"(тел|факс|моб)"))
                     {
                         if (!string.IsNullOrEmpty(infoHolder.Phone))
-                            infoHolder.Phone += "; " + RegExpression(value);
-                        else infoHolder.Phone = RegExpression(value);
+                            infoHolder.Phone += "; " + RegExHelper.RegExpression(value);
+                        else infoHolder.Phone = RegExHelper.RegExpression(value);
                     }
                     else if (value.Contains("e-mail"))
-                        infoHolder.Mail = RegExpression(value.Replace("e-mail:", ""));
+                        infoHolder.Mail = RegExHelper.RegExpression(value.Replace("e-mail:", ""));
                     else if (!value.Contains("URL"))
-                        infoHolder.Address = RegExpression(value);
+                        infoHolder.Address = RegExHelper.RegExpression(value);
                 }
                 holdersList.Add(infoHolder);
             }
 
             return holdersList;
-        }
-
-        public string RegExpression(string textInput)
-        {
-            var text = textInput.Replace("&quot;", string.Empty)
-                .Replace("\n", string.Empty)
-                .Replace("&nbsp;", string.Empty);
-            text = Regex.Replace(text, @"\s+", " ");
-            return Regex.Replace(text, @"(^\s+)|(\s+$)", string.Empty);
         }
     }
 }

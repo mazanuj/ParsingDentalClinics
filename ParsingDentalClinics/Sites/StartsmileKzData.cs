@@ -4,6 +4,7 @@ using System.Text.RegularExpressions;
 using HtmlAgilityPack;
 using ParsingDentalClinics.Config;
 using ParsingDentalClinics.Interfaces;
+using ParsingDentalClinics.Utils;
 
 namespace ParsingDentalClinics.Sites
 {
@@ -53,7 +54,7 @@ namespace ParsingDentalClinics.Sites
                             {
                                 Site = SiteEnum.StartsmileKz,
                                 Country = CountryEnum.Kazakhstan,
-                                ClinicName = RegExpression(
+                                ClinicName = RegExHelper.RegExpression(
                                     doc.DocumentNode
                                         .Descendants("div")
                                         .First(x => x.Attributes.Contains("class") &&
@@ -61,7 +62,7 @@ namespace ParsingDentalClinics.Sites
                                         .ChildNodes
                                         .Last(x => x.Name == "div")
                                         .InnerText),
-                                Address = RegExpression(
+                                Address = RegExHelper.RegExpression(
                                     doc.DocumentNode
                                         .Descendants("a")
                                         .First(x => x.Attributes.Contains("class") &&
@@ -69,7 +70,7 @@ namespace ParsingDentalClinics.Sites
                                         .ChildNodes
                                         .First(x => x.Name == "span")
                                         .InnerText),
-                                Phone = RegExpression(
+                                Phone = RegExHelper.RegExpression(
                                     doc.DocumentNode
                                         .Descendants("div")
                                         .First(x => x.Attributes.Contains("class") &&
@@ -87,15 +88,6 @@ namespace ParsingDentalClinics.Sites
             }
 
             return holdersList;
-        }
-
-        public string RegExpression(string textInput)
-        {
-            var text = textInput.Replace("&quot;", string.Empty)
-                .Replace("\n", string.Empty)
-                .Replace("&nbsp;", string.Empty);
-            text = Regex.Replace(text, @"\s+", " ");
-            return Regex.Replace(text, @"(^\s+)|(\s+$)", string.Empty);
         }
     }
 }

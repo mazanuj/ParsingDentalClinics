@@ -51,11 +51,17 @@
     <Compile Include="Parsing.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Sites\AllBizData.cs" />
+    <Compile Include="Sites\AllBizAzData.cs" />
+    <Compile Include="Sites\AllBizKzData.cs" />
+    <Compile Include="Sites\AstanaSpravkerData.cs" />
     <Compile Include="Sites\BakuSearchData.cs" />
+    <Compile Include="Sites\BiznesinfoAz.cs" />
     <Compile Include="Sites\InterstomData.cs" />
     <Compile Include="Sites\NavigatorAzData.cs" />
-    <Compile Include="Sites\ZoonAzData.cs" />
+    <Compile Include="Sites\StartsmileKzData.cs" />
+    <Compile Include="Sites\VseKz.cs" />
+    <Compile Include="Sites\YaMamaKzData.cs" />
+    <Compile Include="Utils\RegExHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
