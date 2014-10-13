@@ -10,14 +10,16 @@ using ParsingDentalClinics.Utils;
 
 namespace ParsingDentalClinics.Sites
 {
-    internal class AllBizKzData : ISiteData
+    using System.Threading.Tasks;
+
+    internal class AllBizKzData
     {
-        public IEnumerable<InfoHolder> GetInfo()
+        public static async Task<IEnumerable<InfoHolder>> GetInfo()
         {
             var holdersList = new List<InfoHolder>();
 
             var wc = new WebClient();
-            var htmlByte = wc.DownloadData("http://www.kz.all.biz/stomatologicheskie-uslugi-bsr1675");
+            var htmlByte = await wc.DownloadDataTaskAsync("http://www.kz.all.biz/stomatologicheskie-uslugi-bsr1675");
             var html = Encoding.UTF8.GetString(htmlByte);
 
             var doc = new HtmlDocument();

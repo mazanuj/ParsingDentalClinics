@@ -9,16 +9,18 @@ using ParsingDentalClinics.Utils;
 
 namespace ParsingDentalClinics.Sites
 {
-    internal class AllBizAzData : ISiteData
+    using System.Threading.Tasks;
+
+    internal class AllBizAzData
     {
-        public IEnumerable<InfoHolder> GetInfo()
+        public static async Task<IEnumerable<InfoHolder>> GetInfo()
         {
             var holdersList = new List<InfoHolder>();
 
             var wc = new WebClient();
             wc.Headers.Add(HttpRequestHeader.Cookie, "pager_per_page=48");
             wc.Headers.Add(HttpRequestHeader.Cookie, "test=ok");
-            var html = wc.DownloadString("http://baku.all.biz/stomatologicheskie-uslugi-bsr1675");
+            var html = await wc.DownloadStringTaskAsync("http://baku.all.biz/stomatologicheskie-uslugi-bsr1675");
 
             var doc = new HtmlDocument();
             doc.LoadHtml(html);

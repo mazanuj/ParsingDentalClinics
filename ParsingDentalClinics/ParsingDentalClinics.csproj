@@ -45,6 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AllDataGetter.cs" />
     <Compile Include="Config\InfoHolder.cs" />
     <Compile Include="Factories\SiteDataFactory.cs" />
     <Compile Include="Interfaces\ISites.cs" />

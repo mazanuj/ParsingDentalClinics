@@ -10,12 +10,14 @@ using ParsingDentalClinics.Utils;
 
 namespace ParsingDentalClinics.Sites
 {
-    internal class BakuSearchData : ISiteData
+    using System.Threading.Tasks;
+
+    internal class BakuSearchData
     {
-        public IEnumerable<InfoHolder> GetInfo()
+        public static async Task<IEnumerable<InfoHolder>> GetInfo()
         {
             var holdersList = new List<InfoHolder>();
-            var htmlByte = new WebClient().DownloadData("http://www.bakusearch.info/russian/medical/stom_clinic.php");
+            var htmlByte = await new WebClient().DownloadDataTaskAsync("http://www.bakusearch.info/russian/medical/stom_clinic.php");
             var html = Encoding.GetEncoding("windows-1251").GetString(htmlByte);
             var doc = new HtmlDocument();
             doc.LoadHtml(html);

@@ -7,11 +7,16 @@ using ParsingDentalClinics.Utils;
 
 namespace ParsingDentalClinics.Sites
 {
-    internal class VseKz : ISiteData
+    using System.Threading.Tasks;
+
+    internal class VseKz
     {
-        public IEnumerable<InfoHolder> GetInfo()
+        public static async Task<IEnumerable<InfoHolder>> GetInfo()
         {
-            const string data = @"
+            return await Task.Run(
+                () =>
+                {
+                    const string data = @"
                 ASTRUM;пр.Абая, 95/1;299227
                 DENT AURA;ул.Ауэзова, 4;214345
                 DENT LUX;пр.Абая, 28;321010, 327873
@@ -61,24 +66,25 @@ namespace ParsingDentalClinics.Sites
                 Стоматология (ИП Сагиев);г.Астана, пр.Богенбай батыра, 31, кв.52;316600
             ";
 
-            var clinics =
-                Regex.Replace(data, @"\r", "")
-                    .Split('\n')
-                    .Select(RegExHelper.RegExpression)
-                    .Where(x => !string.IsNullOrEmpty(x));
+                    var clinics =
+                        Regex.Replace(data, @"\r", "")
+                            .Split('\n')
+                            .Select(RegExHelper.RegExpression)
+                            .Where(x => !string.IsNullOrEmpty(x));
 
-            return new List<InfoHolder>(clinics.Select(clinic =>
-            {
-                var rows = clinic.Split(';');
-                return new InfoHolder
-                {
-                    Site = SiteEnum.VseKz,
-                    Country = CountryEnum.Kazakhstan,
-                    ClinicName = rows[0],
-                    Address = rows[1],
-                    Phone = rows[2]
-                };
-            }));
+                    return new List<InfoHolder>(clinics.Select(clinic =>
+                    {
+                        var rows = clinic.Split(';');
+                        return new InfoHolder
+                        {
+                            Site = SiteEnum.VseKz,
+                            Country = CountryEnum.Kazakhstan,
+                            ClinicName = rows[0],
+                            Address = rows[1],
+                            Phone = rows[2]
+                        };
+                    }));
+                });
         }
     }
 }
