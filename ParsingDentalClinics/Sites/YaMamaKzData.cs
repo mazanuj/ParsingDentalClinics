@@ -3,11 +3,11 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using HtmlAgilityPack;
 using ParsingDentalClinics.Config;
-using ParsingDentalClinics.Interfaces;
 using ParsingDentalClinics.Utils;
 
 namespace ParsingDentalClinics.Sites
 {
+    using System;
     using System.Threading.Tasks;
 
     internal class YaMamaKzData
@@ -17,47 +17,75 @@ namespace ParsingDentalClinics.Sites
             return await Task.Run(
                 () =>
                 {
-                    var holdersList = new List<InfoHolder>();
-
-                    var doc = new HtmlWeb().Load("http://www.ya-mama.kz/catalog/zdorove/stomatologii/city-3/list/page300");
-
-                    var pageLast = int.Parse(doc
-                        .DocumentNode
-                        .Descendants("div")
-                        .First(x => x.Attributes.Contains("class") &&
-                                    x.Attributes["class"].Value == "pager_list")
-                        .ChildNodes.First(y => y.Name == "em").InnerText);
-
-                    for (var i = pageLast; i > 0; i--)
+                    try
                     {
-                        var url = string.Format("http://www.ya-mama.kz/catalog/zdorove/stomatologii/city-3/list/page{0}", i);
-                        doc = new HtmlWeb().Load(url);
+                        var holdersList = new List<InfoHolder>();
 
-                        var clinics = doc.DocumentNode
-                            .Descendants("tr")
-                            .Where(x => x.Attributes.Contains("class") && x.Attributes["class"].Value == "");
+                        var doc =
+                            new HtmlWeb().Load("http://www.ya-mama.kz/catalog/zdorove/stomatologii/city-3/list/page300");
 
-                        holdersList.AddRange(clinics.Select(clinic => new InfoHolder
+                        var pageLast =
+                            int.Parse(
+                                doc.DocumentNode.Descendants("div")
+                                    .First(
+                                        x =>
+                                        x.Attributes.Contains("class") && x.Attributes["class"].Value == "pager_list")
+                                    .ChildNodes.First(y => y.Name == "em")
+                                    .InnerText);
+
+                        for (var i = pageLast; i > 0; i--)
                         {
-                            Site = SiteEnum.YaMamaKz,
-                            Country = CountryEnum.Kazakhstan,
-                            ClinicName = RegExHelper.RegExpression(
-                                clinic.Descendants("a")
-                                    .First(x => x.Attributes.Contains("id") &&
-                                                x.Attributes["id"].Value == "selected_company").InnerText),
-                            Address = RegExHelper.RegExpression(
-                                clinic.Descendants("a")
-                                    .First(x => x.Attributes.Contains("class") &&
-                                                x.Attributes["class"].Value == "showmap").InnerText),
-                            Phone = RegExHelper.RegExpression(
-                                clinic.Descendants("p")
-                                    .First(x => x.Attributes.Contains("class") &&
-                                                x.Attributes["class"].Value == "phone").InnerText),
+                            var url =
+                                string.Format(
+                                    "http://www.ya-mama.kz/catalog/zdorove/stomatologii/city-3/list/page{0}",
+                                    i);
+                            doc = new HtmlWeb().Load(url);
 
-                        }));
+                            var clinics =
+                                doc.DocumentNode.Descendants("tr")
+                                    .Where(x => x.Attributes.Contains("class") && x.Attributes["class"].Value == "");
+
+                            holdersList.AddRange(
+                                clinics.Select(
+                                    clinic =>
+                                    new InfoHolder
+                                        {
+                                            Site = SiteEnum.YaMamaKz,
+                                            Country = CountryEnum.Kazakhstan,
+                                            ClinicName =
+                                                RegExHelper.RegExpression(
+                                                    clinic.Descendants("a")
+                                                .First(
+                                                    x =>
+                                                    x.Attributes.Contains("id")
+                                                    && x.Attributes["id"].Value == "selected_company")
+                                                .InnerText),
+                                            Address =
+                                                RegExHelper.RegExpression(
+                                                    clinic.Descendants("a")
+                                                .First(
+                                                    x =>
+                                                    x.Attributes.Contains("class")
+                                                    && x.Attributes["class"].Value == "showmap")
+                                                .InnerText),
+                                            Phone =
+                                                RegExHelper.RegExpression(
+                                                    clinic.Descendants("p")
+                                                .First(
+                                                    x =>
+                                                    x.Attributes.Contains("class")
+                                                    && x.Attributes["class"].Value == "phone")
+                                                .InnerText),
+                                        }));
+                        }
+
+                        return holdersList;
                     }
-
-                    return holdersList;
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine("Error in YaMamaKzData {0}", ex.Message);
+                        return new List<InfoHolder>();
+                    }
                 });
         }
     }

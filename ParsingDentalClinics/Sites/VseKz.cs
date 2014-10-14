@@ -1,9 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using ParsingDentalClinics.Config;
+using ParsingDentalClinics.Utils;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
-using ParsingDentalClinics.Config;
-using ParsingDentalClinics.Interfaces;
-using ParsingDentalClinics.Utils;
 
 namespace ParsingDentalClinics.Sites
 {
