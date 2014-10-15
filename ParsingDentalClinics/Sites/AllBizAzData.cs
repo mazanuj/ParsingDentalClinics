@@ -4,14 +4,13 @@ using System.Net;
 using System.Text.RegularExpressions;
 using HtmlAgilityPack;
 using ParsingDentalClinics.Config;
-using ParsingDentalClinics.Interfaces;
 using ParsingDentalClinics.Utils;
 
 namespace ParsingDentalClinics.Sites
 {
     using System.Threading.Tasks;
 
-    internal class AllBizAzData
+    internal static class AllBizAzData
     {
         public static async Task<IEnumerable<InfoHolder>> GetInfo()
         {

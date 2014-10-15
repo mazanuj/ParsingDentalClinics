@@ -2,14 +2,13 @@
 using System.Linq;
 using System.Text.RegularExpressions;
 using ParsingDentalClinics.Config;
-using ParsingDentalClinics.Interfaces;
 using ParsingDentalClinics.Utils;
 
 namespace ParsingDentalClinics.Sites
 {
     using System.Threading.Tasks;
 
-    internal class VseKz
+    internal static class VseKz
     {
         public static async Task<IEnumerable<InfoHolder>> GetInfo()
         {

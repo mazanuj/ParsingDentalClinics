@@ -1,16 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text.RegularExpressions;
 using HtmlAgilityPack;
 using ParsingDentalClinics.Config;
-using ParsingDentalClinics.Interfaces;
 using ParsingDentalClinics.Utils;
 
 namespace ParsingDentalClinics.Sites
 {
     using System.Threading.Tasks;
 
-    internal class YaMamaKzData
+    internal static class YaMamaKzData
     {
         public static async Task<IEnumerable<InfoHolder>> GetInfo()
         {

@@ -5,14 +5,13 @@ using System.Text;
 using System.Text.RegularExpressions;
 using HtmlAgilityPack;
 using ParsingDentalClinics.Config;
-using ParsingDentalClinics.Interfaces;
 using ParsingDentalClinics.Utils;
 
 namespace ParsingDentalClinics.Sites
 {
     using System.Threading.Tasks;
 
-    internal class AllBizKzData
+    internal static class AllBizKzData
     {
         public static async Task<IEnumerable<InfoHolder>> GetInfo()
         {
