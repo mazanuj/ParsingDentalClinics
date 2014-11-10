@@ -34,7 +34,6 @@ namespace ParsingDentalClinics
                 resultData.AddRange(item);
             }
 
-            //Distinct
             return resultData
                 .Where(x => !string.IsNullOrEmpty(x.Phone))
                 .GroupBy(holder => holder.Phone.Replace(" - ", ""))
